@@ -57,7 +57,7 @@
 #define SCI1 			0x00D0
 #define LIN_PHY_INTEGRATED		1				/* LIN physical layer integrated */
 #define SCI_ROUTED 		SCI0					/* Channel routed to LINPHY */
-#define MODIFY_ROUTING 	MODRR2_S0L0RR			/* Register that routes SCI0 to external pins */
+#define MODIFY_ROUTING 	MODRR2_MODRR			/* Register that routes SCI0 to external pins */
 #define ROUTING_VALUE	0b1100					/* Value to write to the register */
 /* SPI definitions */
 #define SPPR_MAX	7

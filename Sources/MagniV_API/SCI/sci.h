@@ -211,6 +211,7 @@ void sci_init(unsigned long baudrate, unsigned long bus_frequency, unsigned int 
 void put_char(char character, unsigned int sci_channel);
 char get_char(unsigned int sci_channel);
 void send_string(char string[], unsigned int sci_channel);
+void echo(unsigned int sci_channel);
 
 #endif /* SCI_H_ */
 /** @}*/

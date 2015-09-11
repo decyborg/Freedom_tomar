@@ -85,5 +85,13 @@ void send_string(char string[], unsigned int sci_channel){
 		put_char(string[i], sci_channel);
 	}
 }
+
+/** Echoes to terminal what is received
+ * 
+ * 
+ * */
+void echo(unsigned int sci_channel){	
+	put_char(get_char(sci_channel), sci_channel); 	/* Receive character to send and send it */
+}
 /** @}*/
 /** @}*/
