@@ -18,8 +18,10 @@ Start12.c.o                             Model: BANKED,        Lang: ANSI-C
 rtshc12.c.o (ansibi.lib)                Model: BANKED,        Lang: ANSI-C
 gpio.c.o                                Model: BANKED,        Lang: ANSI-C
 ls.c.o                                  Model: BANKED,        Lang: ANSI-C
+pwm.c.o                                 Model: BANKED,        Lang: ANSI-C
 cpmu.c.o                                Model: BANKED,        Lang: ANSI-C
 sci.c.o                                 Model: BANKED,        Lang: ANSI-C
+hs.c.o                                  Model: BANKED,        Lang: ANSI-C
 
 *********************************************************************************************
 STARTUP SECTION
@@ -40,7 +42,7 @@ Section Name                    Size  Type     From       To       Segment
 .rodata1                          27     R     0xC015     0xC02F   ROM_C000
 NON_BANKED                       310     R     0xC030     0xC165   ROM_C000
 .copy                              2     R     0xC166     0xC167   ROM_C000
-.text                           1291     R    0xC8000    0xC850A   PAGE_0C
+.text                           1366     R    0xC8000    0xC8555   PAGE_0C
 .stack                           256   R/W     0x3800     0x38FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -228,7 +230,7 @@ NON_BANKED                       310     R     0xC030     0xC165   ROM_C000
 .vectSeg183_vect                   2     R     0xFFFE     0xFFFF   .vectSeg183
 
 Summary of section sizes per section type:
-READ_ONLY (R):         675 (dec:     1653)
+READ_ONLY (R):         6C0 (dec:     1728)
 READ_WRITE (R/W):      100 (dec:      256)
 NO_INIT (N/I):          DE (dec:      222)
 
@@ -292,11 +294,11 @@ MODULE:                 -- mc9s12vr64.c.o --
      _OCPD                                       6C       1       1       0   .abs_section_6c
      _PTPSR                                      6E       1       1       0   .abs_section_6e
      _ATDSTAT0                                   76       1       1       0   .abs_section_76
-     _PWME                                       A0       1       1       0   .abs_section_a0
+     _PWME                                       A0       1       1       1   .abs_section_a0
      _PWMPOL                                     A1       1       1       0   .abs_section_a1
      _PWMCLK                                     A2       1       1       0   .abs_section_a2
      _PWMPRCLK                                   A3       1       1       0   .abs_section_a3
-     _PWMCAE                                     A4       1       1       0   .abs_section_a4
+     _PWMCAE                                     A4       1       1       1   .abs_section_a4
      _PWMCTL                                     A5       1       1       0   .abs_section_a5
      _PWMCLKAB                                   A6       1       1       0   .abs_section_a6
      _PWMSCLA                                    A8       1       1       0   .abs_section_a8
@@ -328,10 +330,10 @@ MODULE:                 -- mc9s12vr64.c.o --
      _DFPROT                                    109       1       1       0   .abs_section_109
      _FOPT                                      110       1       1       0   .abs_section_110
      _IVBR                                      120       1       1       0   .abs_section_120
-     _HSDR                                      140       1       1       0   .abs_section_140
-     _HSCR                                      141       1       1       0   .abs_section_141
+     _HSDR                                      140       1       1       1   .abs_section_140
+     _HSCR                                      141       1       1       4   .abs_section_141
      _HSSR                                      145       1       1       0   .abs_section_145
-     _HSIE                                      146       1       1       0   .abs_section_146
+     _HSIE                                      146       1       1       1   .abs_section_146
      _HSIF                                      147       1       1       0   .abs_section_147
      _LSDR                                      150       1       1       4   .abs_section_150
      _LSCR                                      151       1       1       2   .abs_section_151
@@ -368,7 +370,7 @@ MODULE:                 -- mc9s12vr64.c.o --
      _PPSP                                      25D       1       1       0   .abs_section_25d
      _PIEP                                      25E       1       1       0   .abs_section_25e
      _PIFP                                      25F       1       1       0   .abs_section_25f
-     _PTIL                                      269       1       1       0   .abs_section_269
+     _PTIL                                      269       1       1       2   .abs_section_269
      _DIENL                                     26A       1       1       2   .abs_section_26a
      _PTAL                                      26B       1       1       0   .abs_section_26b
      _PIRL                                      26C       1       1       0   .abs_section_26c
@@ -414,12 +416,12 @@ MODULE:                 -- mc9s12vr64.c.o --
      _PWMCNT45                                   B0       2       2       0   .abs_section_b0
      _PWMCNT67                                   B2       2       2       0   .abs_section_b2
      _PWMPER01                                   B4       2       2       0   .abs_section_b4
-     _PWMPER23                                   B6       2       2       0   .abs_section_b6
-     _PWMPER45                                   B8       2       2       0   .abs_section_b8
+     _PWMPER23                                   B6       2       2       2   .abs_section_b6
+     _PWMPER45                                   B8       2       2       1   .abs_section_b8
      _PWMPER67                                   BA       2       2       0   .abs_section_ba
      _PWMDTY01                                   BC       2       2       0   .abs_section_bc
-     _PWMDTY23                                   BE       2       2       0   .abs_section_be
-     _PWMDTY45                                   C0       2       2       0   .abs_section_c0
+     _PWMDTY23                                   BE       2       2       2   .abs_section_be
+     _PWMDTY45                                   C0       2       2       1   .abs_section_c0
      _PWMDTY67                                   C2       2       2       0   .abs_section_c2
      _SCI0BD                                     C8       2       2       0   .abs_section_c8
      _SCI1BD                                     D0       2       2       0   .abs_section_d0
@@ -430,13 +432,13 @@ MODULE:                 -- mc9s12vr64.c.o --
      _CPMUIRCTRIM                               2F8       2       2       0   .abs_section_2f8
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                     C8000      7C     124       2   .text       
+     main                                     C8000      96     150       2   .text       
 - VARIABLES:
      STRING.Test...1                           C015       7       7       1   .rodata1    
      STRING...Test.successful...2              C01C      14      20       1   .rodata1    
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                     C807C      29      41       2   .text       
+     Init                                     C8096      29      41       2   .text       
      _Startup                                  C000       B      11       0   .init       
 - VARIABLES:
      _startupData                              C00B       6       6       3   .startData  
@@ -456,30 +458,39 @@ MODULE:                 -- rtshc12.c.o (ansibi.lib) --
 - VARIABLES:
 MODULE:                 -- gpio.c.o --
 - PROCEDURES:
-     gpio_init                                C80A5       9       9       2   .text       
+     gpio_init                                C80BF       9       9       2   .text       
 - VARIABLES:
 MODULE:                 -- ls.c.o --
 - PROCEDURES:
-     LS_Module_Init                           C80AE       9       9       2   .text       
-     LS0_On                                   C80B7       5       5       2   .text       
-     LS1_On                                   C80BC       5       5       2   .text       
-     LS0_Off                                  C80C1       5       5       2   .text       
-     LS1_Off                                  C80C6       5       5       2   .text       
+     LS_Module_Init                           C80C8       9       9       2   .text       
+     LS0_On                                   C80D1       5       5       2   .text       
+     LS1_On                                   C80D6       5       5       2   .text       
+     LS0_Off                                  C80DB       5       5       2   .text       
+     LS1_Off                                  C80E0       5       5       2   .text       
+- VARIABLES:
+MODULE:                 -- pwm.c.o --
+- PROCEDURES:
+     PWM_init                                 C80E5      17      23       2   .text       
 - VARIABLES:
 MODULE:                 -- cpmu.c.o --
 - PROCEDURES:
-     clock_init                               C80CB      39      57       2   .text       
-     calc_prs                                 C8104     200     512      17   .text       
-     search_prs                               C8304     12B     299       6   .text       
-     set_clock                                C842F      51      81       2   .text       
+     clock_init                               C80FC      39      57       2   .text       
+     calc_prs                                 C8135     200     512      17   .text       
+     search_prs                               C8335     12B     299       6   .text       
+     set_clock                                C8460      51      81       2   .text       
 - VARIABLES:
 MODULE:                 -- sci.c.o --
 - PROCEDURES:
-     sci_init                                 C8480      33      51       2   .text       
-     put_char                                 C84B3      13      19       4   .text       
-     get_char                                 C84C6       B      11       2   .text       
-     send_string                              C84D1      2B      43       2   .text       
-     echo                                     C84FC       F      15       2   .text       
+     sci_init                                 C84B1      33      51       2   .text       
+     put_char                                 C84E4      13      19       4   .text       
+     get_char                                 C84F7       B      11       2   .text       
+     send_string                              C8502      2B      43       2   .text       
+     echo                                     C852D       F      15       2   .text       
+- VARIABLES:
+MODULE:                 -- hs.c.o --
+- PROCEDURES:
+     HS_Module_Init                           C853C      15      21       2   .text       
+     HS0_On                                   C8551       5       5       2   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -487,21 +498,24 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12vr64.c.o                             222      0      0
-  main.c.o                                     0    124     27
+  main.c.o                                     0    150     27
   Start12.c.o                                  0     52      0
   rtshc12.c.o (ansibi.lib)                     0    310      0
   gpio.c.o                                     0      9      0
   ls.c.o                                       0     29      0
+  pwm.c.o                                      0     23      0
   cpmu.c.o                                     0    949      0
   sci.c.o                                      0    139      0
+  hs.c.o                                       0     26      0
   other                                      256     12      2
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  main Init gpio_init LS_Module_Init LS0_On LS1_On LS0_Off LS1_Off clock_init 
-  calc_prs search_prs set_clock sci_init put_char get_char send_string echo 
+  main Init gpio_init LS_Module_Init LS0_On LS1_On LS0_Off LS1_Off PWM_init 
+  clock_init calc_prs search_prs set_clock sci_init put_char get_char 
+  send_string echo HS_Module_Init HS0_On 
 SECTION: ".init"
   _Startup 
 SECTION: ".rodata1"
@@ -946,11 +960,11 @@ OBJECT LIST SORTED BY ADDRESS
      _ATDDR3                                     86       2       2       0   .abs_section_86
      _ATDDR4                                     88       2       2       0   .abs_section_88
      _ATDDR5                                     8A       2       2       0   .abs_section_8a
-     _PWME                                       A0       1       1       0   .abs_section_a0
+     _PWME                                       A0       1       1       1   .abs_section_a0
      _PWMPOL                                     A1       1       1       0   .abs_section_a1
      _PWMCLK                                     A2       1       1       0   .abs_section_a2
      _PWMPRCLK                                   A3       1       1       0   .abs_section_a3
-     _PWMCAE                                     A4       1       1       0   .abs_section_a4
+     _PWMCAE                                     A4       1       1       1   .abs_section_a4
      _PWMCTL                                     A5       1       1       0   .abs_section_a5
      _PWMCLKAB                                   A6       1       1       0   .abs_section_a6
      _PWMSCLA                                    A8       1       1       0   .abs_section_a8
@@ -960,12 +974,12 @@ OBJECT LIST SORTED BY ADDRESS
      _PWMCNT45                                   B0       2       2       0   .abs_section_b0
      _PWMCNT67                                   B2       2       2       0   .abs_section_b2
      _PWMPER01                                   B4       2       2       0   .abs_section_b4
-     _PWMPER23                                   B6       2       2       0   .abs_section_b6
-     _PWMPER45                                   B8       2       2       0   .abs_section_b8
+     _PWMPER23                                   B6       2       2       2   .abs_section_b6
+     _PWMPER45                                   B8       2       2       1   .abs_section_b8
      _PWMPER67                                   BA       2       2       0   .abs_section_ba
      _PWMDTY01                                   BC       2       2       0   .abs_section_bc
-     _PWMDTY23                                   BE       2       2       0   .abs_section_be
-     _PWMDTY45                                   C0       2       2       0   .abs_section_c0
+     _PWMDTY23                                   BE       2       2       2   .abs_section_be
+     _PWMDTY45                                   C0       2       2       1   .abs_section_c0
      _PWMDTY67                                   C2       2       2       0   .abs_section_c2
      _SCI0BD                                     C8       2       2       0   .abs_section_c8
      _SCI0ACR2                                   CA       1       1       0   .abs_section_ca
@@ -998,10 +1012,10 @@ OBJECT LIST SORTED BY ADDRESS
      _FCCOB                                     10A       2       2       0   .abs_section_10a
      _FOPT                                      110       1       1       0   .abs_section_110
      _IVBR                                      120       1       1       0   .abs_section_120
-     _HSDR                                      140       1       1       0   .abs_section_140
-     _HSCR                                      141       1       1       0   .abs_section_141
+     _HSDR                                      140       1       1       1   .abs_section_140
+     _HSCR                                      141       1       1       4   .abs_section_141
      _HSSR                                      145       1       1       0   .abs_section_145
-     _HSIE                                      146       1       1       0   .abs_section_146
+     _HSIE                                      146       1       1       1   .abs_section_146
      _HSIF                                      147       1       1       0   .abs_section_147
      _LSDR                                      150       1       1       4   .abs_section_150
      _LSCR                                      151       1       1       2   .abs_section_151
@@ -1039,7 +1053,7 @@ OBJECT LIST SORTED BY ADDRESS
      _PPSP                                      25D       1       1       0   .abs_section_25d
      _PIEP                                      25E       1       1       0   .abs_section_25e
      _PIFP                                      25F       1       1       0   .abs_section_25f
-     _PTIL                                      269       1       1       0   .abs_section_269
+     _PTIL                                      269       1       1       2   .abs_section_269
      _DIENL                                     26A       1       1       2   .abs_section_26a
      _PTAL                                      26B       1       1       0   .abs_section_26b
      _PIRL                                      26C       1       1       0   .abs_section_26c
@@ -1074,23 +1088,26 @@ OBJECT LIST SORTED BY ADDRESS
      _LMODU                                    C146      11      17       1   NON_BANKED  
      _ILSEXT                                   C157       7       7       2   NON_BANKED  
      _COPY                                     C15E       8       8       3   NON_BANKED  
-     main                                     C8000      7C     124       2   .text       
-     Init                                     C807C      29      41       2   .text       
-     gpio_init                                C80A5       9       9       2   .text       
-     LS_Module_Init                           C80AE       9       9       2   .text       
-     LS0_On                                   C80B7       5       5       2   .text       
-     LS1_On                                   C80BC       5       5       2   .text       
-     LS0_Off                                  C80C1       5       5       2   .text       
-     LS1_Off                                  C80C6       5       5       2   .text       
-     clock_init                               C80CB      39      57       2   .text       
-     calc_prs                                 C8104     200     512      17   .text       
-     search_prs                               C8304     12B     299       6   .text       
-     set_clock                                C842F      51      81       2   .text       
-     sci_init                                 C8480      33      51       2   .text       
-     put_char                                 C84B3      13      19       4   .text       
-     get_char                                 C84C6       B      11       2   .text       
-     send_string                              C84D1      2B      43       2   .text       
-     echo                                     C84FC       F      15       2   .text       
+     main                                     C8000      96     150       2   .text       
+     Init                                     C8096      29      41       2   .text       
+     gpio_init                                C80BF       9       9       2   .text       
+     LS_Module_Init                           C80C8       9       9       2   .text       
+     LS0_On                                   C80D1       5       5       2   .text       
+     LS1_On                                   C80D6       5       5       2   .text       
+     LS0_Off                                  C80DB       5       5       2   .text       
+     LS1_Off                                  C80E0       5       5       2   .text       
+     PWM_init                                 C80E5      17      23       2   .text       
+     clock_init                               C80FC      39      57       2   .text       
+     calc_prs                                 C8135     200     512      17   .text       
+     search_prs                               C8335     12B     299       6   .text       
+     set_clock                                C8460      51      81       2   .text       
+     sci_init                                 C84B1      33      51       2   .text       
+     put_char                                 C84E4      13      19       4   .text       
+     get_char                                 C84F7       B      11       2   .text       
+     send_string                              C8502      2B      43       2   .text       
+     echo                                     C852D       F      15       2   .text       
+     HS_Module_Init                           C853C      15      21       2   .text       
+     HS0_On                                   C8551       5       5       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1106,6 +1123,8 @@ ls.c.o:
   LS0_Disable LS1_Disable 
 cpmu.c.o:
   clock_init_ext 
+hs.c.o:
+  HS0_Disable HS1_Disable HS1_On HS0_Off HS1_Off 
 NOT USED VARIABLES
 rtshc12.c.o (ansibi.lib):
   _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
@@ -1125,8 +1144,9 @@ _LMULS16x32               USES _LNEG
 _LDIVU                    USES _lDivMod 
 _LMODU                    USES _lDivMod 
 main                      USES clock_init sci_init gpio_init LS_Module_Init 
-                                STRING.Test...1 echo STRING...Test.successful...2 LS0_On 
-                                LS0_Off LS1_On LS1_Off _LINC send_string 
+                                HS_Module_Init HS0_On PWM_init STRING.Test...1 echo 
+                                STRING...Test.successful...2 _PTIL LS0_On LS0_Off LS1_On LS1_Off _LINC 
+                                send_string 
 Init                      USES _startupData 
 gpio_init                 USES _DIENL 
 LS_Module_Init            USES _LSCR 
@@ -1134,6 +1154,8 @@ LS0_On                    USES _LSDR
 LS1_On                    USES _LSDR 
 LS0_Off                   USES _LSDR 
 LS1_Off                   USES _LSDR 
+PWM_init                  USES _PWMCAE _PWMPER23 _PWMPER45 _PWMDTY23 _PWMDTY45 
+                                _PWME 
 clock_init                USES _LCMP calc_prs _COPY set_clock 
 calc_prs                  USES calc_prs _LMODU _LCMP _LDIVU _ILSEXT search_prs 
                                 _COPY 
@@ -1142,6 +1164,8 @@ search_prs                USES _LMULS16x32 _LCMP _ILSEXT _LDIVU _LNEG
 sci_init                  USES _LDIVU _MODRR2 
 send_string               USES put_char 
 echo                      USES get_char put_char 
+HS_Module_Init            USES _HSCR _HSIE 
+HS0_On                    USES _HSDR 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -1198,6 +1222,12 @@ DEPENDENCY TREE
  |  |    
  |  +- LS_Module_Init      
  |  |    
+ |  +- HS_Module_Init      
+ |  |    
+ |  +- HS0_On              
+ |  |    
+ |  +- PWM_init            
+ |  |    
  |  +- echo                
  |  |  | 
  |  |  +- get_char            
@@ -1231,5 +1261,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 1653
+Total size of all blocks to be downloaded: 1728
 
