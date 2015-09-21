@@ -22,6 +22,7 @@ pwm.c.o                                 Model: BANKED,        Lang: ANSI-C
 cpmu.c.o                                Model: BANKED,        Lang: ANSI-C
 sci.c.o                                 Model: BANKED,        Lang: ANSI-C
 hs.c.o                                  Model: BANKED,        Lang: ANSI-C
+ADC.c.o                                 Model: BANKED,        Lang: ANSI-C
 
 *********************************************************************************************
 STARTUP SECTION
@@ -30,7 +31,7 @@ Entry point: 0xC000 (_Startup)
 _startupData is allocated at 0xC00B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     0
-  _Copy    *toCopyDownBeg 0xC166
+  _Copy    *toCopyDownBeg 0xC171
 } _startupData;
 
 *********************************************************************************************
@@ -39,10 +40,10 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             11     R     0xC000     0xC00A   ROM_C000
 .startData                        10     R     0xC00B     0xC014   ROM_C000
-.rodata1                          27     R     0xC015     0xC02F   ROM_C000
-NON_BANKED                       310     R     0xC030     0xC165   ROM_C000
-.copy                              2     R     0xC166     0xC167   ROM_C000
-.text                           1366     R    0xC8000    0xC8555   PAGE_0C
+.rodata1                          38     R     0xC015     0xC03A   ROM_C000
+NON_BANKED                       310     R     0xC03B     0xC170   ROM_C000
+.copy                              2     R     0xC171     0xC172   ROM_C000
+.text                           1498     R    0xC8000    0xC85D9   PAGE_0C
 .stack                           256   R/W     0x3800     0x38FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -227,10 +228,11 @@ NON_BANKED                       310     R     0xC030     0xC165   ROM_C000
 .abs_section_246                   2   N/I      0x246      0x247   .absSeg180
 .abs_section_2f4                   2   N/I      0x2F4      0x2F5   .absSeg181
 .abs_section_2f8                   2   N/I      0x2F8      0x2F9   .absSeg182
-.vectSeg183_vect                   2     R     0xFFFE     0xFFFF   .vectSeg183
+PAGE_0C_B800_183                  72     R    0xCB800    0xCB847   PAGE_0C_B800
+.vectSeg184_vect                   2     R     0xFFFE     0xFFFF   .vectSeg184
 
 Summary of section sizes per section type:
-READ_ONLY (R):         6C0 (dec:     1728)
+READ_ONLY (R):         797 (dec:     1943)
 READ_WRITE (R/W):      100 (dec:      256)
 NO_INIT (N/I):          DE (dec:      222)
 
@@ -293,7 +295,7 @@ MODULE:                 -- mc9s12vr64.c.o --
      _TFLG2                                      4F       1       1       0   .abs_section_4f
      _OCPD                                       6C       1       1       0   .abs_section_6c
      _PTPSR                                      6E       1       1       0   .abs_section_6e
-     _ATDSTAT0                                   76       1       1       0   .abs_section_76
+     _ATDSTAT0                                   76       1       1       2   .abs_section_76
      _PWME                                       A0       1       1       1   .abs_section_a0
      _PWMPOL                                     A1       1       1       0   .abs_section_a1
      _PWMCLK                                     A2       1       1       0   .abs_section_a2
@@ -341,10 +343,10 @@ MODULE:                 -- mc9s12vr64.c.o --
      _LSIE                                      156       1       1       0   .abs_section_156
      _LSIF                                      157       1       1       0   .abs_section_157
      _LPDR                                      160       1       1       0   .abs_section_160
-     _LPCR                                      161       1       1       0   .abs_section_161
-     _LPSLRM                                    163       1       1       0   .abs_section_163
+     _LPCR                                      161       1       1       2   .abs_section_161
+     _LPSLRM                                    163       1       1       1   .abs_section_163
      _LPSR                                      165       1       1       0   .abs_section_165
-     _LPIE                                      166       1       1       0   .abs_section_166
+     _LPIE                                      166       1       1       1   .abs_section_166
      _LPIF                                      167       1       1       0   .abs_section_167
      _BATE                                      170       1       1       0   .abs_section_170
      _BATSR                                     171       1       1       0   .abs_section_171
@@ -361,7 +363,7 @@ MODULE:                 -- mc9s12vr64.c.o --
      _PERS                                      24C       1       1       0   .abs_section_24c
      _PPSS                                      24D       1       1       0   .abs_section_24d
      _WOMS                                      24E       1       1       0   .abs_section_24e
-     _MODRR2                                    24F       1       1       2   .abs_section_24f
+     _MODRR2                                    24F       1       1       3   .abs_section_24f
      _PTP                                       258       1       1       0   .abs_section_258
      _PTIP                                      259       1       1       0   .abs_section_259
      _DDRP                                      25A       1       1       0   .abs_section_25a
@@ -398,14 +400,14 @@ MODULE:                 -- mc9s12vr64.c.o --
      _TC1                                        52       2       2       0   .abs_section_52
      _TC2                                        54       2       2       0   .abs_section_54
      _TC3                                        56       2       2       0   .abs_section_56
-     _ATDCTL01                                   70       2       2       0   .abs_section_70
-     _ATDCTL23                                   72       2       2       0   .abs_section_72
-     _ATDCTL45                                   74       2       2       0   .abs_section_74
+     _ATDCTL01                                   70       2       2       1   .abs_section_70
+     _ATDCTL23                                   72       2       2       5   .abs_section_72
+     _ATDCTL45                                   74       2       2       7   .abs_section_74
      _ATDCMPE                                    78       2       2       0   .abs_section_78
      _ATDSTAT2                                   7A       2       2       0   .abs_section_7a
      _ATDDIEN                                    7C       2       2       0   .abs_section_7c
      _ATDCMPHT                                   7E       2       2       0   .abs_section_7e
-     _ATDDR0                                     80       2       2       0   .abs_section_80
+     _ATDDR0                                     80       2       2       1   .abs_section_80
      _ATDDR1                                     82       2       2       0   .abs_section_82
      _ATDDR2                                     84       2       2       0   .abs_section_84
      _ATDDR3                                     86       2       2       0   .abs_section_86
@@ -432,13 +434,15 @@ MODULE:                 -- mc9s12vr64.c.o --
      _CPMUIRCTRIM                               2F8       2       2       0   .abs_section_2f8
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                     C8000      96     150       2   .text       
+     main                                     C8000      DF     223       2   .text       
+     DisplayInt                               C80DF      3B      59       2   .text       
 - VARIABLES:
      STRING.Test...1                           C015       7       7       1   .rodata1    
      STRING...Test.successful...2              C01C      14      20       1   .rodata1    
+     STRING............3                       C030       B      11       1   .rodata1    
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                     C8096      29      41       2   .text       
+     Init                                     C811A      29      41       2   .text       
      _Startup                                  C000       B      11       0   .init       
 - VARIABLES:
      _startupData                              C00B       6       6       3   .startData  
@@ -446,51 +450,56 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          3900       0       0       1               
 MODULE:                 -- rtshc12.c.o (ansibi.lib) --
 - PROCEDURES:
-     _LCMP                                     C030      19      25       5   NON_BANKED  
-     _LNEG                                     C049       D      13       2   NON_BANKED  
-     _LINC                                     C056       5       5       1   NON_BANKED  
-     _LMULS16x32                               C05B      1F      31       1   NON_BANKED  
-     _lDivMod                                  C07A      BE     190       2   NON_BANKED  
-     _LDIVU                                    C138       E      14       4   NON_BANKED  
-     _LMODU                                    C146      11      17       1   NON_BANKED  
-     _ILSEXT                                   C157       7       7       2   NON_BANKED  
-     _COPY                                     C15E       8       8       3   NON_BANKED  
+     _LCMP                                     C03B      19      25       5   NON_BANKED  
+     _LNEG                                     C054       D      13       2   NON_BANKED  
+     _LINC                                     C061       5       5       1   NON_BANKED  
+     _LMULS16x32                               C066      1F      31       1   NON_BANKED  
+     _lDivMod                                  C085      BE     190       2   NON_BANKED  
+     _LDIVU                                    C143       E      14       5   NON_BANKED  
+     _LMODU                                    C151      11      17       1   NON_BANKED  
+     _ILSEXT                                   C162       7       7       2   NON_BANKED  
+     _COPY                                     C169       8       8       3   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- gpio.c.o --
 - PROCEDURES:
-     gpio_init                                C80BF       9       9       2   .text       
+     gpio_init                                C8143       9       9       2   .text       
 - VARIABLES:
 MODULE:                 -- ls.c.o --
 - PROCEDURES:
-     LS_Module_Init                           C80C8       9       9       2   .text       
-     LS0_On                                   C80D1       5       5       2   .text       
-     LS1_On                                   C80D6       5       5       2   .text       
-     LS0_Off                                  C80DB       5       5       2   .text       
-     LS1_Off                                  C80E0       5       5       2   .text       
+     LS_Module_Init                           C814C       9       9       2   .text       
+     LS0_On                                   C8155       5       5       2   .text       
+     LS1_On                                   C815A       5       5       2   .text       
+     LS0_Off                                  C815F       5       5       2   .text       
+     LS1_Off                                  C8164       5       5       2   .text       
 - VARIABLES:
 MODULE:                 -- pwm.c.o --
 - PROCEDURES:
-     PWM_init                                 C80E5      17      23       2   .text       
+     PWM_init                                 C8169      17      23       2   .text       
 - VARIABLES:
 MODULE:                 -- cpmu.c.o --
 - PROCEDURES:
-     clock_init                               C80FC      39      57       2   .text       
-     calc_prs                                 C8135     200     512      17   .text       
-     search_prs                               C8335     12B     299       6   .text       
-     set_clock                                C8460      51      81       2   .text       
+     clock_init                               C8180      39      57       2   .text       
+     calc_prs                                 C81B9     200     512      17   .text       
+     search_prs                               C83B9     12B     299       6   .text       
+     set_clock                                C84E4      51      81       2   .text       
 - VARIABLES:
 MODULE:                 -- sci.c.o --
 - PROCEDURES:
-     sci_init                                 C84B1      33      51       2   .text       
-     put_char                                 C84E4      13      19       4   .text       
-     get_char                                 C84F7       B      11       2   .text       
-     send_string                              C8502      2B      43       2   .text       
-     echo                                     C852D       F      15       2   .text       
+     sci_init                                 C8535      33      51       4   .text       
+     put_char                                 C8568      13      19       4   .text       
+     get_char                                 C857B       B      11       2   .text       
+     send_string                              C8586      2B      43       6   .text       
+     echo                                     C85B1       F      15       2   .text       
 - VARIABLES:
 MODULE:                 -- hs.c.o --
 - PROCEDURES:
-     HS_Module_Init                           C853C      15      21       2   .text       
-     HS0_On                                   C8551       5       5       2   .text       
+     HS_Module_Init                           C85C0      15      21       2   .text       
+     HS0_On                                   C85D5       5       5       2   .text       
+- VARIABLES:
+MODULE:                 -- ADC.c.o --
+- PROCEDURES:
+     ADC_init                                 CB800      32      50       2   PAGE_0C_B800_183
+     ADC_read                                 CB832      16      22       2   PAGE_0C_B800_183
 - VARIABLES:
 
 *********************************************************************************************
@@ -498,7 +507,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12vr64.c.o                             222      0      0
-  main.c.o                                     0    150     27
+  main.c.o                                     0    282     38
   Start12.c.o                                  0     52      0
   rtshc12.c.o (ansibi.lib)                     0    310      0
   gpio.c.o                                     0      9      0
@@ -507,19 +516,20 @@ MODULE STATISTIC
   cpmu.c.o                                     0    949      0
   sci.c.o                                      0    139      0
   hs.c.o                                       0     26      0
+  ADC.c.o                                      0     72      0
   other                                      256     12      2
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  main Init gpio_init LS_Module_Init LS0_On LS1_On LS0_Off LS1_Off PWM_init 
-  clock_init calc_prs search_prs set_clock sci_init put_char get_char 
+  main DisplayInt Init gpio_init LS_Module_Init LS0_On LS1_On LS0_Off LS1_Off 
+  PWM_init clock_init calc_prs search_prs set_clock sci_init put_char get_char 
   send_string echo HS_Module_Init HS0_On 
 SECTION: ".init"
   _Startup 
 SECTION: ".rodata1"
-  STRING.Test...1 STRING...Test.successful...2 
+  STRING.Test...1 STRING...Test.successful...2 STRING............3 
 SECTION: "NON_BANKED"
   _LCMP _LNEG _LINC _LMULS16x32 _lDivMod _LDIVU _LMODU _ILSEXT _COPY 
 SECTION: ".abs_section_8"
@@ -888,6 +898,8 @@ SECTION: ".abs_section_2f4"
   _CPMUAPIR 
 SECTION: ".abs_section_2f8"
   _CPMUIRCTRIM 
+SECTION: "PAGE_0C_B800_183"
+  ADC_init ADC_read 
 
 *********************************************************************************************
 OBJECT LIST SORTED BY ADDRESS
@@ -946,15 +958,15 @@ OBJECT LIST SORTED BY ADDRESS
      _TC3                                        56       2       2       0   .abs_section_56
      _OCPD                                       6C       1       1       0   .abs_section_6c
      _PTPSR                                      6E       1       1       0   .abs_section_6e
-     _ATDCTL01                                   70       2       2       0   .abs_section_70
-     _ATDCTL23                                   72       2       2       0   .abs_section_72
-     _ATDCTL45                                   74       2       2       0   .abs_section_74
-     _ATDSTAT0                                   76       1       1       0   .abs_section_76
+     _ATDCTL01                                   70       2       2       1   .abs_section_70
+     _ATDCTL23                                   72       2       2       5   .abs_section_72
+     _ATDCTL45                                   74       2       2       7   .abs_section_74
+     _ATDSTAT0                                   76       1       1       2   .abs_section_76
      _ATDCMPE                                    78       2       2       0   .abs_section_78
      _ATDSTAT2                                   7A       2       2       0   .abs_section_7a
      _ATDDIEN                                    7C       2       2       0   .abs_section_7c
      _ATDCMPHT                                   7E       2       2       0   .abs_section_7e
-     _ATDDR0                                     80       2       2       0   .abs_section_80
+     _ATDDR0                                     80       2       2       1   .abs_section_80
      _ATDDR1                                     82       2       2       0   .abs_section_82
      _ATDDR2                                     84       2       2       0   .abs_section_84
      _ATDDR3                                     86       2       2       0   .abs_section_86
@@ -1023,10 +1035,10 @@ OBJECT LIST SORTED BY ADDRESS
      _LSIE                                      156       1       1       0   .abs_section_156
      _LSIF                                      157       1       1       0   .abs_section_157
      _LPDR                                      160       1       1       0   .abs_section_160
-     _LPCR                                      161       1       1       0   .abs_section_161
-     _LPSLRM                                    163       1       1       0   .abs_section_163
+     _LPCR                                      161       1       1       2   .abs_section_161
+     _LPSLRM                                    163       1       1       1   .abs_section_163
      _LPSR                                      165       1       1       0   .abs_section_165
-     _LPIE                                      166       1       1       0   .abs_section_166
+     _LPIE                                      166       1       1       1   .abs_section_166
      _LPIF                                      167       1       1       0   .abs_section_167
      _BATE                                      170       1       1       0   .abs_section_170
      _BATSR                                     171       1       1       0   .abs_section_171
@@ -1044,7 +1056,7 @@ OBJECT LIST SORTED BY ADDRESS
      _PERS                                      24C       1       1       0   .abs_section_24c
      _PPSS                                      24D       1       1       0   .abs_section_24d
      _WOMS                                      24E       1       1       0   .abs_section_24e
-     _MODRR2                                    24F       1       1       2   .abs_section_24f
+     _MODRR2                                    24F       1       1       3   .abs_section_24f
      _PTP                                       258       1       1       0   .abs_section_258
      _PTIP                                      259       1       1       0   .abs_section_259
      _DDRP                                      25A       1       1       0   .abs_section_25a
@@ -1079,35 +1091,39 @@ OBJECT LIST SORTED BY ADDRESS
      _Startup                                  C000       B      11       0   .init       
      STRING.Test...1                           C015       7       7       1   .rodata1    
      STRING...Test.successful...2              C01C      14      20       1   .rodata1    
-     _LCMP                                     C030      19      25       5   NON_BANKED  
-     _LNEG                                     C049       D      13       2   NON_BANKED  
-     _LINC                                     C056       5       5       1   NON_BANKED  
-     _LMULS16x32                               C05B      1F      31       1   NON_BANKED  
-     _lDivMod                                  C07A      BE     190       2   NON_BANKED  
-     _LDIVU                                    C138       E      14       4   NON_BANKED  
-     _LMODU                                    C146      11      17       1   NON_BANKED  
-     _ILSEXT                                   C157       7       7       2   NON_BANKED  
-     _COPY                                     C15E       8       8       3   NON_BANKED  
-     main                                     C8000      96     150       2   .text       
-     Init                                     C8096      29      41       2   .text       
-     gpio_init                                C80BF       9       9       2   .text       
-     LS_Module_Init                           C80C8       9       9       2   .text       
-     LS0_On                                   C80D1       5       5       2   .text       
-     LS1_On                                   C80D6       5       5       2   .text       
-     LS0_Off                                  C80DB       5       5       2   .text       
-     LS1_Off                                  C80E0       5       5       2   .text       
-     PWM_init                                 C80E5      17      23       2   .text       
-     clock_init                               C80FC      39      57       2   .text       
-     calc_prs                                 C8135     200     512      17   .text       
-     search_prs                               C8335     12B     299       6   .text       
-     set_clock                                C8460      51      81       2   .text       
-     sci_init                                 C84B1      33      51       2   .text       
-     put_char                                 C84E4      13      19       4   .text       
-     get_char                                 C84F7       B      11       2   .text       
-     send_string                              C8502      2B      43       2   .text       
-     echo                                     C852D       F      15       2   .text       
-     HS_Module_Init                           C853C      15      21       2   .text       
-     HS0_On                                   C8551       5       5       2   .text       
+     STRING............3                       C030       B      11       1   .rodata1    
+     _LCMP                                     C03B      19      25       5   NON_BANKED  
+     _LNEG                                     C054       D      13       2   NON_BANKED  
+     _LINC                                     C061       5       5       1   NON_BANKED  
+     _LMULS16x32                               C066      1F      31       1   NON_BANKED  
+     _lDivMod                                  C085      BE     190       2   NON_BANKED  
+     _LDIVU                                    C143       E      14       5   NON_BANKED  
+     _LMODU                                    C151      11      17       1   NON_BANKED  
+     _ILSEXT                                   C162       7       7       2   NON_BANKED  
+     _COPY                                     C169       8       8       3   NON_BANKED  
+     main                                     C8000      DF     223       2   .text       
+     DisplayInt                               C80DF      3B      59       2   .text       
+     Init                                     C811A      29      41       2   .text       
+     gpio_init                                C8143       9       9       2   .text       
+     LS_Module_Init                           C814C       9       9       2   .text       
+     LS0_On                                   C8155       5       5       2   .text       
+     LS1_On                                   C815A       5       5       2   .text       
+     LS0_Off                                  C815F       5       5       2   .text       
+     LS1_Off                                  C8164       5       5       2   .text       
+     PWM_init                                 C8169      17      23       2   .text       
+     clock_init                               C8180      39      57       2   .text       
+     calc_prs                                 C81B9     200     512      17   .text       
+     search_prs                               C83B9     12B     299       6   .text       
+     set_clock                                C84E4      51      81       2   .text       
+     sci_init                                 C8535      33      51       4   .text       
+     put_char                                 C8568      13      19       4   .text       
+     get_char                                 C857B       B      11       2   .text       
+     send_string                              C8586      2B      43       6   .text       
+     echo                                     C85B1       F      15       2   .text       
+     HS_Module_Init                           C85C0      15      21       2   .text       
+     HS0_On                                   C85D5       5       5       2   .text       
+     ADC_init                                 CB800      32      50       2   PAGE_0C_B800_183
+     ADC_read                                 CB832      16      22       2   PAGE_0C_B800_183
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1132,7 +1148,7 @@ rtshc12.c.o (ansibi.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC166 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC171 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1143,10 +1159,12 @@ _Startup                  USES __SEG_END_SSTACK Init main
 _LMULS16x32               USES _LNEG 
 _LDIVU                    USES _lDivMod 
 _LMODU                    USES _lDivMod 
-main                      USES clock_init sci_init gpio_init LS_Module_Init 
-                                HS_Module_Init HS0_On PWM_init STRING.Test...1 echo 
+main                      USES clock_init sci_init _LPSLRM _LPIE _LPCR _MODRR2 
+                                gpio_init LS_Module_Init HS_Module_Init HS0_On PWM_init 
+                                ADC_init STRING.Test...1 echo 
                                 STRING...Test.successful...2 _PTIL LS0_On LS0_Off LS1_On LS1_Off _LINC 
-                                send_string 
+                                STRING............3 send_string ADC_read DisplayInt 
+DisplayInt                USES send_string 
 Init                      USES _startupData 
 gpio_init                 USES _DIENL 
 LS_Module_Init            USES _LSCR 
@@ -1166,6 +1184,8 @@ send_string               USES put_char
 echo                      USES get_char put_char 
 HS_Module_Init            USES _HSCR _HSIE 
 HS0_On                    USES _HSDR 
+ADC_init                  USES _ATDCTL01 _ATDCTL23 _ATDCTL45 _LDIVU 
+ADC_read                  USES _ATDCTL45 _ATDSTAT0 _ATDDR0 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -1228,6 +1248,10 @@ DEPENDENCY TREE
  |  |    
  |  +- PWM_init            
  |  |    
+ |  +- ADC_init            
+ |  |  | 
+ |  |  +- _LDIVU               (see above)
+ |  |     
  |  +- echo                
  |  |  | 
  |  |  +- get_char            
@@ -1245,8 +1269,14 @@ DEPENDENCY TREE
  |  +- _LINC               
  |  |    
  |  +- send_string         
+ |  |  | 
+ |  |  +- put_char             (see above)
+ |  |     
+ |  +- ADC_read            
+ |  |    
+ |  +- DisplayInt          
  |     | 
- |     +- put_char             (see above)
+ |     +- send_string          (see above)
  |        
  +- _Startup            
     | 
@@ -1260,6 +1290,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 1728
+Number of blocks to be downloaded: 8
+Total size of all blocks to be downloaded: 1943
 
