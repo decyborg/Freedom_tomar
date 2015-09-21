@@ -43,7 +43,7 @@ Section Name                    Size  Type     From       To       Segment
 .rodata1                          38     R     0xC015     0xC03A   ROM_C000
 NON_BANKED                       310     R     0xC03B     0xC170   ROM_C000
 .copy                              2     R     0xC171     0xC172   ROM_C000
-.text                           1498     R    0xC8000    0xC85D9   PAGE_0C
+.text                           1509     R    0xC8000    0xC85E4   PAGE_0C
 .stack                           256   R/W     0x3800     0x38FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -232,7 +232,7 @@ PAGE_0C_B800_183                  72     R    0xCB800    0xCB847   PAGE_0C_B800
 .vectSeg184_vect                   2     R     0xFFFE     0xFFFF   .vectSeg184
 
 Summary of section sizes per section type:
-READ_ONLY (R):         797 (dec:     1943)
+READ_ONLY (R):         7A2 (dec:     1954)
 READ_WRITE (R/W):      100 (dec:      256)
 NO_INIT (N/I):          DE (dec:      222)
 
@@ -434,15 +434,15 @@ MODULE:                 -- mc9s12vr64.c.o --
      _CPMUIRCTRIM                               2F8       2       2       0   .abs_section_2f8
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                     C8000      DF     223       2   .text       
-     DisplayInt                               C80DF      3B      59       2   .text       
+     main                                     C8000      EA     234       2   .text       
+     DisplayInt                               C80EA      3B      59       2   .text       
 - VARIABLES:
      STRING.Test...1                           C015       7       7       1   .rodata1    
      STRING...Test.successful...2              C01C      14      20       1   .rodata1    
      STRING............3                       C030       B      11       1   .rodata1    
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                     C811A      29      41       2   .text       
+     Init                                     C8125      29      41       2   .text       
      _Startup                                  C000       B      11       0   .init       
 - VARIABLES:
      _startupData                              C00B       6       6       3   .startData  
@@ -462,39 +462,39 @@ MODULE:                 -- rtshc12.c.o (ansibi.lib) --
 - VARIABLES:
 MODULE:                 -- gpio.c.o --
 - PROCEDURES:
-     gpio_init                                C8143       9       9       2   .text       
+     gpio_init                                C814E       9       9       2   .text       
 - VARIABLES:
 MODULE:                 -- ls.c.o --
 - PROCEDURES:
-     LS_Module_Init                           C814C       9       9       2   .text       
-     LS0_On                                   C8155       5       5       2   .text       
-     LS1_On                                   C815A       5       5       2   .text       
-     LS0_Off                                  C815F       5       5       2   .text       
-     LS1_Off                                  C8164       5       5       2   .text       
+     LS_Module_Init                           C8157       9       9       2   .text       
+     LS0_On                                   C8160       5       5       2   .text       
+     LS1_On                                   C8165       5       5       2   .text       
+     LS0_Off                                  C816A       5       5       2   .text       
+     LS1_Off                                  C816F       5       5       2   .text       
 - VARIABLES:
 MODULE:                 -- pwm.c.o --
 - PROCEDURES:
-     PWM_init                                 C8169      17      23       2   .text       
+     PWM_init                                 C8174      17      23       2   .text       
 - VARIABLES:
 MODULE:                 -- cpmu.c.o --
 - PROCEDURES:
-     clock_init                               C8180      39      57       2   .text       
-     calc_prs                                 C81B9     200     512      17   .text       
-     search_prs                               C83B9     12B     299       6   .text       
-     set_clock                                C84E4      51      81       2   .text       
+     clock_init                               C818B      39      57       2   .text       
+     calc_prs                                 C81C4     200     512      17   .text       
+     search_prs                               C83C4     12B     299       6   .text       
+     set_clock                                C84EF      51      81       2   .text       
 - VARIABLES:
 MODULE:                 -- sci.c.o --
 - PROCEDURES:
-     sci_init                                 C8535      33      51       4   .text       
-     put_char                                 C8568      13      19       4   .text       
-     get_char                                 C857B       B      11       2   .text       
-     send_string                              C8586      2B      43       6   .text       
-     echo                                     C85B1       F      15       2   .text       
+     sci_init                                 C8540      33      51       4   .text       
+     put_char                                 C8573      13      19       6   .text       
+     get_char                                 C8586       B      11       2   .text       
+     send_string                              C8591      2B      43       6   .text       
+     echo                                     C85BC       F      15       2   .text       
 - VARIABLES:
 MODULE:                 -- hs.c.o --
 - PROCEDURES:
-     HS_Module_Init                           C85C0      15      21       2   .text       
-     HS0_On                                   C85D5       5       5       2   .text       
+     HS_Module_Init                           C85CB      15      21       2   .text       
+     HS0_On                                   C85E0       5       5       2   .text       
 - VARIABLES:
 MODULE:                 -- ADC.c.o --
 - PROCEDURES:
@@ -507,7 +507,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12vr64.c.o                             222      0      0
-  main.c.o                                     0    282     38
+  main.c.o                                     0    293     38
   Start12.c.o                                  0     52      0
   rtshc12.c.o (ansibi.lib)                     0    310      0
   gpio.c.o                                     0      9      0
@@ -1101,27 +1101,27 @@ OBJECT LIST SORTED BY ADDRESS
      _LMODU                                    C151      11      17       1   NON_BANKED  
      _ILSEXT                                   C162       7       7       2   NON_BANKED  
      _COPY                                     C169       8       8       3   NON_BANKED  
-     main                                     C8000      DF     223       2   .text       
-     DisplayInt                               C80DF      3B      59       2   .text       
-     Init                                     C811A      29      41       2   .text       
-     gpio_init                                C8143       9       9       2   .text       
-     LS_Module_Init                           C814C       9       9       2   .text       
-     LS0_On                                   C8155       5       5       2   .text       
-     LS1_On                                   C815A       5       5       2   .text       
-     LS0_Off                                  C815F       5       5       2   .text       
-     LS1_Off                                  C8164       5       5       2   .text       
-     PWM_init                                 C8169      17      23       2   .text       
-     clock_init                               C8180      39      57       2   .text       
-     calc_prs                                 C81B9     200     512      17   .text       
-     search_prs                               C83B9     12B     299       6   .text       
-     set_clock                                C84E4      51      81       2   .text       
-     sci_init                                 C8535      33      51       4   .text       
-     put_char                                 C8568      13      19       4   .text       
-     get_char                                 C857B       B      11       2   .text       
-     send_string                              C8586      2B      43       6   .text       
-     echo                                     C85B1       F      15       2   .text       
-     HS_Module_Init                           C85C0      15      21       2   .text       
-     HS0_On                                   C85D5       5       5       2   .text       
+     main                                     C8000      EA     234       2   .text       
+     DisplayInt                               C80EA      3B      59       2   .text       
+     Init                                     C8125      29      41       2   .text       
+     gpio_init                                C814E       9       9       2   .text       
+     LS_Module_Init                           C8157       9       9       2   .text       
+     LS0_On                                   C8160       5       5       2   .text       
+     LS1_On                                   C8165       5       5       2   .text       
+     LS0_Off                                  C816A       5       5       2   .text       
+     LS1_Off                                  C816F       5       5       2   .text       
+     PWM_init                                 C8174      17      23       2   .text       
+     clock_init                               C818B      39      57       2   .text       
+     calc_prs                                 C81C4     200     512      17   .text       
+     search_prs                               C83C4     12B     299       6   .text       
+     set_clock                                C84EF      51      81       2   .text       
+     sci_init                                 C8540      33      51       4   .text       
+     put_char                                 C8573      13      19       6   .text       
+     get_char                                 C8586       B      11       2   .text       
+     send_string                              C8591      2B      43       6   .text       
+     echo                                     C85BC       F      15       2   .text       
+     HS_Module_Init                           C85CB      15      21       2   .text       
+     HS0_On                                   C85E0       5       5       2   .text       
      ADC_init                                 CB800      32      50       2   PAGE_0C_B800_183
      ADC_read                                 CB832      16      22       2   PAGE_0C_B800_183
 
@@ -1163,7 +1163,7 @@ main                      USES clock_init sci_init _LPSLRM _LPIE _LPCR _MODRR2
                                 gpio_init LS_Module_Init HS_Module_Init HS0_On PWM_init 
                                 ADC_init STRING.Test...1 echo 
                                 STRING...Test.successful...2 _PTIL LS0_On LS0_Off LS1_On LS1_Off _LINC 
-                                STRING............3 send_string ADC_read DisplayInt 
+                                STRING............3 send_string ADC_read DisplayInt put_char 
 DisplayInt                USES send_string 
 Init                      USES _startupData 
 gpio_init                 USES _DIENL 
@@ -1275,9 +1275,11 @@ DEPENDENCY TREE
  |  +- ADC_read            
  |  |    
  |  +- DisplayInt          
- |     | 
- |     +- send_string          (see above)
- |        
+ |  |  | 
+ |  |  +- send_string          (see above)
+ |  |     
+ |  +- put_char             (see above)
+ |     
  +- _Startup            
     | 
     +- Init                
@@ -1291,5 +1293,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 8
-Total size of all blocks to be downloaded: 1943
+Total size of all blocks to be downloaded: 1954
 

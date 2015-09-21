@@ -55,6 +55,7 @@ void main(void) {
     for(delay = 0; delay < 30000; ++delay);
     send_string("\r         ", SCI1);
     DisplayInt((unsigned char) ADC_read(POT), SCI1);
+    put_char(0x55,SCI0);	/* Send stuff through LIN */
   } /* loop forever */
   /* please make sure that you never leave main */
 }
