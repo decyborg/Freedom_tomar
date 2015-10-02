@@ -31,7 +31,7 @@ Entry point: 0xC000 (_Startup)
 _startupData is allocated at 0xC00B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     0
-  _Copy    *toCopyDownBeg 0xC196
+  _Copy    *toCopyDownBeg 0xC2CA
 } _startupData;
 
 *********************************************************************************************
@@ -40,10 +40,10 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             11     R     0xC000     0xC00A   ROM_C000
 .startData                        10     R     0xC00B     0xC014   ROM_C000
-.rodata1                          38     R     0xC015     0xC03A   ROM_C000
-NON_BANKED                       347     R     0xC03B     0xC195   ROM_C000
-.copy                              2     R     0xC196     0xC197   ROM_C000
-.text                           1523     R    0xC8000    0xC85F2   PAGE_0C
+.rodata1                         338     R     0xC015     0xC166   ROM_C000
+NON_BANKED                       355     R     0xC167     0xC2C9   ROM_C000
+.copy                              2     R     0xC2CA     0xC2CB   ROM_C000
+.text                           1520     R    0xC8000    0xC85EF   PAGE_0C
 .stack                           256   R/W     0x3800     0x38FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -229,11 +229,11 @@ NON_BANKED                       347     R     0xC03B     0xC195   ROM_C000
 .abs_section_2f4                   2   N/I      0x2F4      0x2F5   .absSeg181
 .abs_section_2f8                   2   N/I      0x2F8      0x2F9   .absSeg182
 .abs_section_ffae                  2     R     0xFFAE     0xFFAF   .absSeg183
-PAGE_0C_B800_184                  72     R    0xCB800    0xCB847   PAGE_0C_B800
+PAGE_0C_B800_184                 191     R    0xCB800    0xCB8BE   PAGE_0C_B800
 .vectSeg185_vect                   2     R     0xFFFE     0xFFFF   .vectSeg185
 
 Summary of section sizes per section type:
-READ_ONLY (R):         7D7 (dec:     2007)
+READ_ONLY (R):         97F (dec:     2431)
 READ_WRITE (R/W):      100 (dec:      256)
 NO_INIT (N/I):          DE (dec:      222)
 
@@ -334,7 +334,7 @@ MODULE:                 -- mc9s12vr64.c.o --
      _FOPT                                      110       1       1       0   .abs_section_110
      _IVBR                                      120       1       1       0   .abs_section_120
      _HSDR                                      140       1       1       1   .abs_section_140
-     _HSCR                                      141       1       1       6   .abs_section_141
+     _HSCR                                      141       1       1       5   .abs_section_141
      _HSSR                                      145       1       1       0   .abs_section_145
      _HSIE                                      146       1       1       1   .abs_section_146
      _HSIF                                      147       1       1       6   .abs_section_147
@@ -373,7 +373,7 @@ MODULE:                 -- mc9s12vr64.c.o --
      _PPSP                                      25D       1       1       0   .abs_section_25d
      _PIEP                                      25E       1       1       0   .abs_section_25e
      _PIFP                                      25F       1       1       0   .abs_section_25f
-     _PTIL                                      269       1       1       2   .abs_section_269
+     _PTIL                                      269       1       1       0   .abs_section_269
      _DIENL                                     26A       1       1       2   .abs_section_26a
      _PTAL                                      26B       1       1       0   .abs_section_26b
      _PIRL                                      26C       1       1       0   .abs_section_26c
@@ -435,17 +435,25 @@ MODULE:                 -- mc9s12vr64.c.o --
      _CPMUIRCTRIM                               2F8       2       2       0   .abs_section_2f8
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                     C8000      EE     238       2   .text       
-     DisplayInt                               C80EE      3B      59       2   .text       
-     HS_OC_ISR                                 C03B      25      37       1   NON_BANKED  
+     main                                     C8000     167     359      11   .text       
+     DisplayInt                               C8167      3B      59       2   .text       
+     HS_OC_ISR                                 C167      2D      45       1   NON_BANKED  
 - VARIABLES:
-     STRING.Test...1                           C015       7       7       1   .rodata1    
-     STRING...Test.successful...2              C01C      14      20       1   .rodata1    
-     STRING............3                       C030       B      11       1   .rodata1    
+     STRING...Serial.Test..press.1             C015      1F      31       1   .rodata1    
+     STRING...Test.successful...2              C034      14      20       1   .rodata1    
+     STRING...Press.u.to.activat.3             C048      3F      63       1   .rodata1    
+     STRING...Pres.e.to.exit.rel.4             C087      1E      30       1   .rodata1    
+     STRING...Relay.Low.side.dri.5             C0A5      23      35       1   .rodata1    
+     STRING...Relay.Low.side.dri.6             C0C8      25      37       1   .rodata1    
+     STRING...Relay.Low.side.dri.7             C0ED      23      35       1   .rodata1    
+     STRING...Relay.Low.side.dri.8             C110      25      37       1   .rodata1    
+     STRING..ADC.value.....9                   C135       F      15       1   .rodata1    
+     STRING.....10                             C144       4       4       1   .rodata1    
+     STRING...Button.is.working..11            C148      1F      31       1   .rodata1    
      _Vector_40                                FFAE       2       2       0   .abs_section_ffae
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                     C8129      29      41       2   .text       
+     Init                                     C81A2      29      41       2   .text       
      _Startup                                  C000       B      11       0   .init       
 - VARIABLES:
      _startupData                              C00B       6       6       3   .startData  
@@ -453,58 +461,57 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          3900       0       0       1               
 MODULE:                 -- rtshc12.c.o (ansibi.lib) --
 - PROCEDURES:
-     _LCMP                                     C060      19      25       5   NON_BANKED  
-     _LNEG                                     C079       D      13       2   NON_BANKED  
-     _LINC                                     C086       5       5       1   NON_BANKED  
-     _LMULS16x32                               C08B      1F      31       1   NON_BANKED  
-     _lDivMod                                  C0AA      BE     190       2   NON_BANKED  
-     _LDIVU                                    C168       E      14       5   NON_BANKED  
-     _LMODU                                    C176      11      17       1   NON_BANKED  
-     _ILSEXT                                   C187       7       7       2   NON_BANKED  
-     _COPY                                     C18E       8       8       3   NON_BANKED  
+     _LCMP                                     C194      19      25       5   NON_BANKED  
+     _LNEG                                     C1AD       D      13       2   NON_BANKED  
+     _LINC                                     C1BA       5       5       1   NON_BANKED  
+     _LMULS16x32                               C1BF      1F      31       1   NON_BANKED  
+     _lDivMod                                  C1DE      BE     190       2   NON_BANKED  
+     _LDIVU                                    C29C       E      14       5   NON_BANKED  
+     _LMODU                                    C2AA      11      17       1   NON_BANKED  
+     _ILSEXT                                   C2BB       7       7       2   NON_BANKED  
+     _COPY                                     C2C2       8       8       3   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- gpio.c.o --
 - PROCEDURES:
-     gpio_init                                C8152       9       9       2   .text       
+     gpio_init                                C81CB       9       9       2   .text       
 - VARIABLES:
 MODULE:                 -- ls.c.o --
 - PROCEDURES:
-     LS_Module_Init                           C815B       9       9       2   .text       
-     LS0_On                                   C8164       5       5       2   .text       
-     LS1_On                                   C8169       5       5       2   .text       
-     LS0_Off                                  C816E       5       5       2   .text       
-     LS1_Off                                  C8173       5       5       2   .text       
+     LS_Module_Init                           C81D4       9       9       2   .text       
+     LS0_On                                   C81DD       5       5       2   .text       
+     LS1_On                                   C81E2       5       5       2   .text       
+     LS0_Off                                  C81E7       5       5       2   .text       
+     LS1_Off                                  C81EC       5       5       2   .text       
 - VARIABLES:
 MODULE:                 -- pwm.c.o --
 - PROCEDURES:
-     PWM_init                                 C8178      17      23       2   .text       
+     PWM_init                                 C81F1      17      23       2   .text       
 - VARIABLES:
 MODULE:                 -- cpmu.c.o --
 - PROCEDURES:
-     clock_init                               C818F      39      57       2   .text       
-     calc_prs                                 C81C8     200     512      17   .text       
-     search_prs                               C83C8     12B     299       6   .text       
-     set_clock                                C84F3      51      81       2   .text       
+     clock_init                               C8208      39      57       2   .text       
+     calc_prs                                 C8241     200     512      17   .text       
+     search_prs                               C8441     12B     299       6   .text       
+     set_clock                                C856C      51      81       2   .text       
 - VARIABLES:
 MODULE:                 -- sci.c.o --
 - PROCEDURES:
-     sci_init                                 C8544      33      51       4   .text       
-     put_char                                 C8577      13      19       6   .text       
-     get_char                                 C858A       B      11       2   .text       
-     send_string                              C8595      2B      43       6   .text       
-     echo                                     C85C0       F      15       2   .text       
+     sci_init                                 C85BD      33      51       4   .text       
+     put_char                                 CB800      13      19      10   PAGE_0C_B800_184
+     get_char                                 CB813       B      11       4   PAGE_0C_B800_184
+     send_string                              CB81E      2B      43       8   PAGE_0C_B800_184
+     echo                                     CB849       F      15       2   PAGE_0C_B800_184
 - VARIABLES:
 MODULE:                 -- hs.c.o --
 - PROCEDURES:
-     HS_Module_Init                           C85CF      15      21       2   .text       
-     HS0_Disable                              C85E4       5       5       2   .text       
-     HS1_Disable                              C85E9       5       5       2   .text       
-     HS0_On                                   C85EE       5       5       2   .text       
+     HS_Module_Init                           CB858      15      21       2   PAGE_0C_B800_184
+     HS1_Disable                              CB86D       5       5       2   PAGE_0C_B800_184
+     HS0_On                                   CB872       5       5       2   PAGE_0C_B800_184
 - VARIABLES:
 MODULE:                 -- ADC.c.o --
 - PROCEDURES:
-     ADC_init                                 CB800      32      50       2   PAGE_0C_B800_184
-     ADC_read                                 CB832      16      22       2   PAGE_0C_B800_184
+     ADC_init                                 CB877      32      50       2   PAGE_0C_B800_184
+     ADC_read                                 CB8A9      16      22       2   PAGE_0C_B800_184
 - VARIABLES:
 
 *********************************************************************************************
@@ -512,7 +519,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12vr64.c.o                             222      0      0
-  main.c.o                                     0    334     40
+  main.c.o                                     0    463    340
   Start12.c.o                                  0     52      0
   rtshc12.c.o (ansibi.lib)                     0    310      0
   gpio.c.o                                     0      9      0
@@ -520,7 +527,7 @@ MODULE STATISTIC
   pwm.c.o                                      0     23      0
   cpmu.c.o                                     0    949      0
   sci.c.o                                      0    139      0
-  hs.c.o                                       0     36      0
+  hs.c.o                                       0     31      0
   ADC.c.o                                      0     72      0
   other                                      256     12      2
 
@@ -529,12 +536,15 @@ SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
   main DisplayInt Init gpio_init LS_Module_Init LS0_On LS1_On LS0_Off LS1_Off 
-  PWM_init clock_init calc_prs search_prs set_clock sci_init put_char get_char 
-  send_string echo HS_Module_Init HS0_Disable HS1_Disable HS0_On 
+  PWM_init clock_init calc_prs search_prs set_clock sci_init 
 SECTION: ".init"
   _Startup 
 SECTION: ".rodata1"
-  STRING.Test...1 STRING...Test.successful...2 STRING............3 
+  STRING...Serial.Test..press.1 STRING...Test.successful...2 
+  STRING...Press.u.to.activat.3 STRING...Pres.e.to.exit.rel.4 
+  STRING...Relay.Low.side.dri.5 STRING...Relay.Low.side.dri.6 
+  STRING...Relay.Low.side.dri.7 STRING...Relay.Low.side.dri.8 
+  STRING..ADC.value.....9 STRING.....10 STRING...Button.is.working..11 
 SECTION: "NON_BANKED"
   HS_OC_ISR _LCMP _LNEG _LINC _LMULS16x32 _lDivMod _LDIVU _LMODU _ILSEXT _COPY 
 SECTION: ".abs_section_8"
@@ -906,6 +916,7 @@ SECTION: ".abs_section_2f8"
 SECTION: ".abs_section_ffae"
   _Vector_40 
 SECTION: "PAGE_0C_B800_184"
+  put_char get_char send_string echo HS_Module_Init HS1_Disable HS0_On 
   ADC_init ADC_read 
 
 *********************************************************************************************
@@ -1032,7 +1043,7 @@ OBJECT LIST SORTED BY ADDRESS
      _FOPT                                      110       1       1       0   .abs_section_110
      _IVBR                                      120       1       1       0   .abs_section_120
      _HSDR                                      140       1       1       1   .abs_section_140
-     _HSCR                                      141       1       1       6   .abs_section_141
+     _HSCR                                      141       1       1       5   .abs_section_141
      _HSSR                                      145       1       1       0   .abs_section_145
      _HSIE                                      146       1       1       1   .abs_section_146
      _HSIF                                      147       1       1       6   .abs_section_147
@@ -1072,7 +1083,7 @@ OBJECT LIST SORTED BY ADDRESS
      _PPSP                                      25D       1       1       0   .abs_section_25d
      _PIEP                                      25E       1       1       0   .abs_section_25e
      _PIFP                                      25F       1       1       0   .abs_section_25f
-     _PTIL                                      269       1       1       2   .abs_section_269
+     _PTIL                                      269       1       1       0   .abs_section_269
      _DIENL                                     26A       1       1       2   .abs_section_26a
      _PTAL                                      26B       1       1       0   .abs_section_26b
      _PIRL                                      26C       1       1       0   .abs_section_26c
@@ -1096,45 +1107,52 @@ OBJECT LIST SORTED BY ADDRESS
      _CPMUOSC                                   2FA       1       1       0   .abs_section_2fa
      _CPMUPROT                                  2FB       1       1       0   .abs_section_2fb
      _Startup                                  C000       B      11       0   .init       
-     STRING.Test...1                           C015       7       7       1   .rodata1    
-     STRING...Test.successful...2              C01C      14      20       1   .rodata1    
-     STRING............3                       C030       B      11       1   .rodata1    
-     HS_OC_ISR                                 C03B      25      37       1   NON_BANKED  
-     _LCMP                                     C060      19      25       5   NON_BANKED  
-     _LNEG                                     C079       D      13       2   NON_BANKED  
-     _LINC                                     C086       5       5       1   NON_BANKED  
-     _LMULS16x32                               C08B      1F      31       1   NON_BANKED  
-     _lDivMod                                  C0AA      BE     190       2   NON_BANKED  
-     _LDIVU                                    C168       E      14       5   NON_BANKED  
-     _LMODU                                    C176      11      17       1   NON_BANKED  
-     _ILSEXT                                   C187       7       7       2   NON_BANKED  
-     _COPY                                     C18E       8       8       3   NON_BANKED  
+     STRING...Serial.Test..press.1             C015      1F      31       1   .rodata1    
+     STRING...Test.successful...2              C034      14      20       1   .rodata1    
+     STRING...Press.u.to.activat.3             C048      3F      63       1   .rodata1    
+     STRING...Pres.e.to.exit.rel.4             C087      1E      30       1   .rodata1    
+     STRING...Relay.Low.side.dri.5             C0A5      23      35       1   .rodata1    
+     STRING...Relay.Low.side.dri.6             C0C8      25      37       1   .rodata1    
+     STRING...Relay.Low.side.dri.7             C0ED      23      35       1   .rodata1    
+     STRING...Relay.Low.side.dri.8             C110      25      37       1   .rodata1    
+     STRING..ADC.value.....9                   C135       F      15       1   .rodata1    
+     STRING.....10                             C144       4       4       1   .rodata1    
+     STRING...Button.is.working..11            C148      1F      31       1   .rodata1    
+     HS_OC_ISR                                 C167      2D      45       1   NON_BANKED  
+     _LCMP                                     C194      19      25       5   NON_BANKED  
+     _LNEG                                     C1AD       D      13       2   NON_BANKED  
+     _LINC                                     C1BA       5       5       1   NON_BANKED  
+     _LMULS16x32                               C1BF      1F      31       1   NON_BANKED  
+     _lDivMod                                  C1DE      BE     190       2   NON_BANKED  
+     _LDIVU                                    C29C       E      14       5   NON_BANKED  
+     _LMODU                                    C2AA      11      17       1   NON_BANKED  
+     _ILSEXT                                   C2BB       7       7       2   NON_BANKED  
+     _COPY                                     C2C2       8       8       3   NON_BANKED  
      _Vector_40                                FFAE       2       2       0   .abs_section_ffae
-     main                                     C8000      EE     238       2   .text       
-     DisplayInt                               C80EE      3B      59       2   .text       
-     Init                                     C8129      29      41       2   .text       
-     gpio_init                                C8152       9       9       2   .text       
-     LS_Module_Init                           C815B       9       9       2   .text       
-     LS0_On                                   C8164       5       5       2   .text       
-     LS1_On                                   C8169       5       5       2   .text       
-     LS0_Off                                  C816E       5       5       2   .text       
-     LS1_Off                                  C8173       5       5       2   .text       
-     PWM_init                                 C8178      17      23       2   .text       
-     clock_init                               C818F      39      57       2   .text       
-     calc_prs                                 C81C8     200     512      17   .text       
-     search_prs                               C83C8     12B     299       6   .text       
-     set_clock                                C84F3      51      81       2   .text       
-     sci_init                                 C8544      33      51       4   .text       
-     put_char                                 C8577      13      19       6   .text       
-     get_char                                 C858A       B      11       2   .text       
-     send_string                              C8595      2B      43       6   .text       
-     echo                                     C85C0       F      15       2   .text       
-     HS_Module_Init                           C85CF      15      21       2   .text       
-     HS0_Disable                              C85E4       5       5       2   .text       
-     HS1_Disable                              C85E9       5       5       2   .text       
-     HS0_On                                   C85EE       5       5       2   .text       
-     ADC_init                                 CB800      32      50       2   PAGE_0C_B800_184
-     ADC_read                                 CB832      16      22       2   PAGE_0C_B800_184
+     main                                     C8000     167     359      11   .text       
+     DisplayInt                               C8167      3B      59       2   .text       
+     Init                                     C81A2      29      41       2   .text       
+     gpio_init                                C81CB       9       9       2   .text       
+     LS_Module_Init                           C81D4       9       9       2   .text       
+     LS0_On                                   C81DD       5       5       2   .text       
+     LS1_On                                   C81E2       5       5       2   .text       
+     LS0_Off                                  C81E7       5       5       2   .text       
+     LS1_Off                                  C81EC       5       5       2   .text       
+     PWM_init                                 C81F1      17      23       2   .text       
+     clock_init                               C8208      39      57       2   .text       
+     calc_prs                                 C8241     200     512      17   .text       
+     search_prs                               C8441     12B     299       6   .text       
+     set_clock                                C856C      51      81       2   .text       
+     sci_init                                 C85BD      33      51       4   .text       
+     put_char                                 CB800      13      19      10   PAGE_0C_B800_184
+     get_char                                 CB813       B      11       4   PAGE_0C_B800_184
+     send_string                              CB81E      2B      43       8   PAGE_0C_B800_184
+     echo                                     CB849       F      15       2   PAGE_0C_B800_184
+     HS_Module_Init                           CB858      15      21       2   PAGE_0C_B800_184
+     HS1_Disable                              CB86D       5       5       2   PAGE_0C_B800_184
+     HS0_On                                   CB872       5       5       2   PAGE_0C_B800_184
+     ADC_init                                 CB877      32      50       2   PAGE_0C_B800_184
+     ADC_read                                 CB8A9      16      22       2   PAGE_0C_B800_184
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1151,7 +1169,7 @@ ls.c.o:
 cpmu.c.o:
   clock_init_ext 
 hs.c.o:
-  HS1_On HS0_Off HS1_Off 
+  HS0_Disable HS1_On HS0_Off HS1_Off 
 NOT USED VARIABLES
 rtshc12.c.o (ansibi.lib):
   _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
@@ -1159,7 +1177,7 @@ rtshc12.c.o (ansibi.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC196 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC2CA ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1167,16 +1185,21 @@ Filling bytes inserted
 OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 _Startup                  USES __SEG_END_SSTACK Init main 
-HS_OC_ISR                 USES _HSIF HS0_Disable HS1_Disable 
+HS_OC_ISR                 USES _HSIF STRING...Button.is.working..11 
+                                send_string HS1_Disable 
 _LMULS16x32               USES _LNEG 
 _LDIVU                    USES _lDivMod 
 _LMODU                    USES _lDivMod 
 _Vector_40                USES HS_OC_ISR 
 main                      USES clock_init sci_init _LPSLRM _LPIE _LPCR _MODRR2 
                                 gpio_init LS_Module_Init HS_Module_Init HS0_On PWM_init 
-                                ADC_init STRING.Test...1 echo 
-                                STRING...Test.successful...2 _PTIL LS0_On LS0_Off LS1_On LS1_Off _LINC 
-                                STRING............3 send_string ADC_read DisplayInt put_char 
+                                ADC_init STRING...Serial.Test..press.1 main echo 
+                                STRING...Test.successful...2 STRING...Press.u.to.activat.3 
+                                STRING...Pres.e.to.exit.rel.4 get_char put_char 
+                                STRING...Relay.Low.side.dri.5 LS0_On STRING...Relay.Low.side.dri.6 LS0_Off 
+                                STRING...Relay.Low.side.dri.7 LS1_On STRING...Relay.Low.side.dri.8 LS1_Off 
+                                STRING..ADC.value.....9 STRING.....10 ADC_read DisplayInt send_string 
+                                _LINC 
 DisplayInt                USES send_string 
 Init                      USES _startupData 
 gpio_init                 USES _DIENL 
@@ -1196,7 +1219,6 @@ sci_init                  USES _LDIVU _MODRR2
 send_string               USES put_char 
 echo                      USES get_char put_char 
 HS_Module_Init            USES _HSCR _HSIE 
-HS0_Disable               USES _HSCR 
 HS1_Disable               USES _HSCR 
 HS0_On                    USES _HSDR 
 ADC_init                  USES _ATDCTL01 _ATDCTL23 _ATDCTL45 _LDIVU 
@@ -1273,6 +1295,10 @@ DEPENDENCY TREE
  |  |  |    
  |  |  +- put_char            
  |  |       
+ |  +- get_char             (see above)
+ |  |  
+ |  +- put_char             (see above)
+ |  |  
  |  +- LS0_On              
  |  |    
  |  +- LS0_Off             
@@ -1281,20 +1307,18 @@ DEPENDENCY TREE
  |  |    
  |  +- LS1_Off             
  |  |    
- |  +- _LINC               
- |  |    
- |  +- send_string         
- |  |  | 
- |  |  +- put_char             (see above)
- |  |     
  |  +- ADC_read            
  |  |    
  |  +- DisplayInt          
  |  |  | 
- |  |  +- send_string          (see above)
- |  |     
- |  +- put_char             (see above)
- |     
+ |  |  +- send_string         
+ |  |     | 
+ |  |     +- put_char             (see above)
+ |  |        
+ |  +- send_string          (see above)
+ |  |  
+ |  +- _LINC               
+ |       
  +- _Startup            
     | 
     +- Init                
@@ -1305,8 +1329,8 @@ DEPENDENCY TREE
  | 
  +- HS_OC_ISR           
     | 
-    +- HS0_Disable         
-    |    
+    +- send_string          (see above)
+    |  
     +- HS1_Disable         
          
 *********************************************************************************************
@@ -1316,5 +1340,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 9
-Total size of all blocks to be downloaded: 2007
+Total size of all blocks to be downloaded: 2431
 

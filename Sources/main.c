@@ -20,6 +20,8 @@ void DisplayInt(unsigned int number, unsigned int channel);
 
 void main(void) {
 	unsigned long delay;
+	char exit = 'o';
+	
   /* Initialization code */
     clock_init(BUS_CLK);
     sci_init(9600, BUS_CLK, SCI0);
@@ -32,28 +34,44 @@ void main(void) {
     PWM_init();
     ADC_init(BUS_CLK);
     
-    
-    send_string("Test\n\r", SCI1);
+    /* Test serial communication */
+    send_string("\n\rSerial Test, press any key\n\r", SCI1);
     echo(SCI1);
     send_string("\n\rTest successful\n\r",SCI1);
 
+	/* Test Relay */
+	send_string("\n\rPress u to activate the relay up and d to activate it down\n\r", SCI1);
+	send_string("\n\rPres e to exit relay test\n\r", SCI1);
+	
+	while(exit != 'e'){
+		exit = get_char(SCI1);
+		put_char(exit, SCI1);
+		if(exit == 'u'){
+			send_string("\r\nRelay Low side driver 0 active\r\n", SCI1);
+			LS0_On();
+			for(delay = 0; delay < 30000; ++delay);
+			send_string("\r\nRelay Low side driver 0 inactive\r\n", SCI1);
+			LS0_Off();
+			exit = 'a';	
+		} else if (exit == 'd') {
+			send_string("\r\nRelay Low side driver 1 active\r\n", SCI1);
+			LS1_On();
+			for(delay = 0; delay < 30000; ++delay);
+			send_string("\r\nRelay Low side driver 1 inactive\r\n", SCI1);
+			LS1_Off();
+			exit = 'a';
+		}		
+	}
+	
+	put_char('\n', SCI1);
 	EnableInterrupts;
 
 
   for(;;) {
     _FEED_COP(); /* feeds the dog */
-    if(read_sw2){
-    	LS0_On();	
-    } else {
-    	LS0_Off();
-    }
-    if(read_sw3){
-    	LS1_On();	
-    } else {
-    	LS1_Off();
-    }
     for(delay = 0; delay < 30000; ++delay);
-    send_string("\r         ", SCI1);
+    send_string("\rADC value:   ", SCI1);
+    send_string("\b\b\b", SCI1);
     DisplayInt((unsigned char) ADC_read(POT), SCI1);
     put_char(0x55,SCI0);	/* Send stuff through LIN */
   } /* loop forever */
@@ -113,7 +131,8 @@ __interrupt VectorNumber_Vhsdrv void HS_OC_ISR(void)
    if(HSIF_HSOCIF0)
    {
       HSIF_HSOCIF0 = 1;
-      HS0_Disable(); /* this will disable the HS0 until reset cycle */
+      send_string("\r\nButton is working properly\r\n", SCI1);
+      //HS0_Disable(); /* this will disable the HS0 until reset cycle */
    }
    else if(HSIF_HSOCIF1)
    {
