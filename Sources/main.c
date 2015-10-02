@@ -97,3 +97,33 @@ void DisplayInt(unsigned int number, unsigned int channel)
 
     send_string(&buf[i], channel );
 }
+
+
+/******************************************************************************
+Function Name  : HS_OC_ISR
+Engineer       : B30269
+Date           : 07/06/11
+Parameters     : None
+Returns        : None
+Notes          : interrupt routine executed by HSxOC detection 
+******************************************************************************/
+#pragma CODE_SEG NON_BANKED
+__interrupt VectorNumber_Vhsdrv void HS_OC_ISR(void)
+{
+   if(HSIF_HSOCIF0)
+   {
+      HSIF_HSOCIF0 = 1;
+      HS0_Disable(); /* this will disable the HS0 until reset cycle */
+   }
+   else if(HSIF_HSOCIF1)
+   {
+      HSIF_HSOCIF1 = 1;
+      HS1_Disable(); /* this will disable the HS1 until reset cycle */
+   }
+   else
+   {
+      HSIF_HSOCIF1 = 1;
+      HSIF_HSOCIF0 = 1;
+   }
+}
+#pragma CODE_SEG DEFAULT

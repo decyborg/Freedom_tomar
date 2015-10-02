@@ -31,7 +31,7 @@ Entry point: 0xC000 (_Startup)
 _startupData is allocated at 0xC00B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     0
-  _Copy    *toCopyDownBeg 0xC171
+  _Copy    *toCopyDownBeg 0xC196
 } _startupData;
 
 *********************************************************************************************
@@ -41,9 +41,9 @@ Section Name                    Size  Type     From       To       Segment
 .init                             11     R     0xC000     0xC00A   ROM_C000
 .startData                        10     R     0xC00B     0xC014   ROM_C000
 .rodata1                          38     R     0xC015     0xC03A   ROM_C000
-NON_BANKED                       310     R     0xC03B     0xC170   ROM_C000
-.copy                              2     R     0xC171     0xC172   ROM_C000
-.text                           1513     R    0xC8000    0xC85E8   PAGE_0C
+NON_BANKED                       347     R     0xC03B     0xC195   ROM_C000
+.copy                              2     R     0xC196     0xC197   ROM_C000
+.text                           1523     R    0xC8000    0xC85F2   PAGE_0C
 .stack                           256   R/W     0x3800     0x38FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -228,11 +228,12 @@ NON_BANKED                       310     R     0xC03B     0xC170   ROM_C000
 .abs_section_246                   2   N/I      0x246      0x247   .absSeg180
 .abs_section_2f4                   2   N/I      0x2F4      0x2F5   .absSeg181
 .abs_section_2f8                   2   N/I      0x2F8      0x2F9   .absSeg182
-PAGE_0C_B800_183                  72     R    0xCB800    0xCB847   PAGE_0C_B800
-.vectSeg184_vect                   2     R     0xFFFE     0xFFFF   .vectSeg184
+.abs_section_ffae                  2     R     0xFFAE     0xFFAF   .absSeg183
+PAGE_0C_B800_184                  72     R    0xCB800    0xCB847   PAGE_0C_B800
+.vectSeg185_vect                   2     R     0xFFFE     0xFFFF   .vectSeg185
 
 Summary of section sizes per section type:
-READ_ONLY (R):         7A6 (dec:     1958)
+READ_ONLY (R):         7D7 (dec:     2007)
 READ_WRITE (R/W):      100 (dec:      256)
 NO_INIT (N/I):          DE (dec:      222)
 
@@ -333,10 +334,10 @@ MODULE:                 -- mc9s12vr64.c.o --
      _FOPT                                      110       1       1       0   .abs_section_110
      _IVBR                                      120       1       1       0   .abs_section_120
      _HSDR                                      140       1       1       1   .abs_section_140
-     _HSCR                                      141       1       1       4   .abs_section_141
+     _HSCR                                      141       1       1       6   .abs_section_141
      _HSSR                                      145       1       1       0   .abs_section_145
      _HSIE                                      146       1       1       1   .abs_section_146
-     _HSIF                                      147       1       1       0   .abs_section_147
+     _HSIF                                      147       1       1       6   .abs_section_147
      _LSDR                                      150       1       1       4   .abs_section_150
      _LSCR                                      151       1       1       2   .abs_section_151
      _LSSR                                      155       1       1       0   .abs_section_155
@@ -436,10 +437,12 @@ MODULE:                 -- main.c.o --
 - PROCEDURES:
      main                                     C8000      EE     238       2   .text       
      DisplayInt                               C80EE      3B      59       2   .text       
+     HS_OC_ISR                                 C03B      25      37       1   NON_BANKED  
 - VARIABLES:
      STRING.Test...1                           C015       7       7       1   .rodata1    
      STRING...Test.successful...2              C01C      14      20       1   .rodata1    
      STRING............3                       C030       B      11       1   .rodata1    
+     _Vector_40                                FFAE       2       2       0   .abs_section_ffae
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
      Init                                     C8129      29      41       2   .text       
@@ -450,15 +453,15 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          3900       0       0       1               
 MODULE:                 -- rtshc12.c.o (ansibi.lib) --
 - PROCEDURES:
-     _LCMP                                     C03B      19      25       5   NON_BANKED  
-     _LNEG                                     C054       D      13       2   NON_BANKED  
-     _LINC                                     C061       5       5       1   NON_BANKED  
-     _LMULS16x32                               C066      1F      31       1   NON_BANKED  
-     _lDivMod                                  C085      BE     190       2   NON_BANKED  
-     _LDIVU                                    C143       E      14       5   NON_BANKED  
-     _LMODU                                    C151      11      17       1   NON_BANKED  
-     _ILSEXT                                   C162       7       7       2   NON_BANKED  
-     _COPY                                     C169       8       8       3   NON_BANKED  
+     _LCMP                                     C060      19      25       5   NON_BANKED  
+     _LNEG                                     C079       D      13       2   NON_BANKED  
+     _LINC                                     C086       5       5       1   NON_BANKED  
+     _LMULS16x32                               C08B      1F      31       1   NON_BANKED  
+     _lDivMod                                  C0AA      BE     190       2   NON_BANKED  
+     _LDIVU                                    C168       E      14       5   NON_BANKED  
+     _LMODU                                    C176      11      17       1   NON_BANKED  
+     _ILSEXT                                   C187       7       7       2   NON_BANKED  
+     _COPY                                     C18E       8       8       3   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- gpio.c.o --
 - PROCEDURES:
@@ -494,12 +497,14 @@ MODULE:                 -- sci.c.o --
 MODULE:                 -- hs.c.o --
 - PROCEDURES:
      HS_Module_Init                           C85CF      15      21       2   .text       
-     HS0_On                                   C85E4       5       5       2   .text       
+     HS0_Disable                              C85E4       5       5       2   .text       
+     HS1_Disable                              C85E9       5       5       2   .text       
+     HS0_On                                   C85EE       5       5       2   .text       
 - VARIABLES:
 MODULE:                 -- ADC.c.o --
 - PROCEDURES:
-     ADC_init                                 CB800      32      50       2   PAGE_0C_B800_183
-     ADC_read                                 CB832      16      22       2   PAGE_0C_B800_183
+     ADC_init                                 CB800      32      50       2   PAGE_0C_B800_184
+     ADC_read                                 CB832      16      22       2   PAGE_0C_B800_184
 - VARIABLES:
 
 *********************************************************************************************
@@ -507,7 +512,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12vr64.c.o                             222      0      0
-  main.c.o                                     0    297     38
+  main.c.o                                     0    334     40
   Start12.c.o                                  0     52      0
   rtshc12.c.o (ansibi.lib)                     0    310      0
   gpio.c.o                                     0      9      0
@@ -515,7 +520,7 @@ MODULE STATISTIC
   pwm.c.o                                      0     23      0
   cpmu.c.o                                     0    949      0
   sci.c.o                                      0    139      0
-  hs.c.o                                       0     26      0
+  hs.c.o                                       0     36      0
   ADC.c.o                                      0     72      0
   other                                      256     12      2
 
@@ -525,13 +530,13 @@ SECTION USE IN OBJECT-ALLOCATION SECTION
 SECTION: ".text"
   main DisplayInt Init gpio_init LS_Module_Init LS0_On LS1_On LS0_Off LS1_Off 
   PWM_init clock_init calc_prs search_prs set_clock sci_init put_char get_char 
-  send_string echo HS_Module_Init HS0_On 
+  send_string echo HS_Module_Init HS0_Disable HS1_Disable HS0_On 
 SECTION: ".init"
   _Startup 
 SECTION: ".rodata1"
   STRING.Test...1 STRING...Test.successful...2 STRING............3 
 SECTION: "NON_BANKED"
-  _LCMP _LNEG _LINC _LMULS16x32 _lDivMod _LDIVU _LMODU _ILSEXT _COPY 
+  HS_OC_ISR _LCMP _LNEG _LINC _LMULS16x32 _lDivMod _LDIVU _LMODU _ILSEXT _COPY 
 SECTION: ".abs_section_8"
   _PORTE 
 SECTION: ".abs_section_9"
@@ -898,7 +903,9 @@ SECTION: ".abs_section_2f4"
   _CPMUAPIR 
 SECTION: ".abs_section_2f8"
   _CPMUIRCTRIM 
-SECTION: "PAGE_0C_B800_183"
+SECTION: ".abs_section_ffae"
+  _Vector_40 
+SECTION: "PAGE_0C_B800_184"
   ADC_init ADC_read 
 
 *********************************************************************************************
@@ -1025,10 +1032,10 @@ OBJECT LIST SORTED BY ADDRESS
      _FOPT                                      110       1       1       0   .abs_section_110
      _IVBR                                      120       1       1       0   .abs_section_120
      _HSDR                                      140       1       1       1   .abs_section_140
-     _HSCR                                      141       1       1       4   .abs_section_141
+     _HSCR                                      141       1       1       6   .abs_section_141
      _HSSR                                      145       1       1       0   .abs_section_145
      _HSIE                                      146       1       1       1   .abs_section_146
-     _HSIF                                      147       1       1       0   .abs_section_147
+     _HSIF                                      147       1       1       6   .abs_section_147
      _LSDR                                      150       1       1       4   .abs_section_150
      _LSCR                                      151       1       1       2   .abs_section_151
      _LSSR                                      155       1       1       0   .abs_section_155
@@ -1092,15 +1099,17 @@ OBJECT LIST SORTED BY ADDRESS
      STRING.Test...1                           C015       7       7       1   .rodata1    
      STRING...Test.successful...2              C01C      14      20       1   .rodata1    
      STRING............3                       C030       B      11       1   .rodata1    
-     _LCMP                                     C03B      19      25       5   NON_BANKED  
-     _LNEG                                     C054       D      13       2   NON_BANKED  
-     _LINC                                     C061       5       5       1   NON_BANKED  
-     _LMULS16x32                               C066      1F      31       1   NON_BANKED  
-     _lDivMod                                  C085      BE     190       2   NON_BANKED  
-     _LDIVU                                    C143       E      14       5   NON_BANKED  
-     _LMODU                                    C151      11      17       1   NON_BANKED  
-     _ILSEXT                                   C162       7       7       2   NON_BANKED  
-     _COPY                                     C169       8       8       3   NON_BANKED  
+     HS_OC_ISR                                 C03B      25      37       1   NON_BANKED  
+     _LCMP                                     C060      19      25       5   NON_BANKED  
+     _LNEG                                     C079       D      13       2   NON_BANKED  
+     _LINC                                     C086       5       5       1   NON_BANKED  
+     _LMULS16x32                               C08B      1F      31       1   NON_BANKED  
+     _lDivMod                                  C0AA      BE     190       2   NON_BANKED  
+     _LDIVU                                    C168       E      14       5   NON_BANKED  
+     _LMODU                                    C176      11      17       1   NON_BANKED  
+     _ILSEXT                                   C187       7       7       2   NON_BANKED  
+     _COPY                                     C18E       8       8       3   NON_BANKED  
+     _Vector_40                                FFAE       2       2       0   .abs_section_ffae
      main                                     C8000      EE     238       2   .text       
      DisplayInt                               C80EE      3B      59       2   .text       
      Init                                     C8129      29      41       2   .text       
@@ -1121,9 +1130,11 @@ OBJECT LIST SORTED BY ADDRESS
      send_string                              C8595      2B      43       6   .text       
      echo                                     C85C0       F      15       2   .text       
      HS_Module_Init                           C85CF      15      21       2   .text       
-     HS0_On                                   C85E4       5       5       2   .text       
-     ADC_init                                 CB800      32      50       2   PAGE_0C_B800_183
-     ADC_read                                 CB832      16      22       2   PAGE_0C_B800_183
+     HS0_Disable                              C85E4       5       5       2   .text       
+     HS1_Disable                              C85E9       5       5       2   .text       
+     HS0_On                                   C85EE       5       5       2   .text       
+     ADC_init                                 CB800      32      50       2   PAGE_0C_B800_184
+     ADC_read                                 CB832      16      22       2   PAGE_0C_B800_184
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1140,7 +1151,7 @@ ls.c.o:
 cpmu.c.o:
   clock_init_ext 
 hs.c.o:
-  HS0_Disable HS1_Disable HS1_On HS0_Off HS1_Off 
+  HS1_On HS0_Off HS1_Off 
 NOT USED VARIABLES
 rtshc12.c.o (ansibi.lib):
   _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
@@ -1148,7 +1159,7 @@ rtshc12.c.o (ansibi.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC171 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC196 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1156,9 +1167,11 @@ Filling bytes inserted
 OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 _Startup                  USES __SEG_END_SSTACK Init main 
+HS_OC_ISR                 USES _HSIF HS0_Disable HS1_Disable 
 _LMULS16x32               USES _LNEG 
 _LDIVU                    USES _lDivMod 
 _LMODU                    USES _lDivMod 
+_Vector_40                USES HS_OC_ISR 
 main                      USES clock_init sci_init _LPSLRM _LPIE _LPCR _MODRR2 
                                 gpio_init LS_Module_Init HS_Module_Init HS0_On PWM_init 
                                 ADC_init STRING.Test...1 echo 
@@ -1183,6 +1196,8 @@ sci_init                  USES _LDIVU _MODRR2
 send_string               USES put_char 
 echo                      USES get_char put_char 
 HS_Module_Init            USES _HSCR _HSIE 
+HS0_Disable               USES _HSCR 
+HS1_Disable               USES _HSCR 
 HS0_On                    USES _HSDR 
 ADC_init                  USES _ATDCTL01 _ATDCTL23 _ATDCTL45 _LDIVU 
 ADC_read                  USES _ATDCTL45 _ATDSTAT0 _ATDDR0 
@@ -1286,12 +1301,20 @@ DEPENDENCY TREE
     |    
     +- main                 (see above)
        
+ _Vector_40          
+ | 
+ +- HS_OC_ISR           
+    | 
+    +- HS0_Disable         
+    |    
+    +- HS1_Disable         
+         
 *********************************************************************************************
 STATISTIC SECTION
 ---------------------------------------------------------------------------------------------
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 8
-Total size of all blocks to be downloaded: 1958
+Number of blocks to be downloaded: 9
+Total size of all blocks to be downloaded: 2007
 
