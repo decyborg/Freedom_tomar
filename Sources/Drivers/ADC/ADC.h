@@ -7,6 +7,6 @@
 #define ATD_CLK           6250000L
 
 /* Prototypes */
-void ADC_init(unsigned char BUS_CLK);
+void ADC_init(unsigned long BUS_CLK);
 unsigned char ADC_read(char channel);
 #endif

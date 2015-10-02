@@ -8,7 +8,7 @@
 #include "ADC.h"
 
 #define BUS_CLK	12000000
-#define POT	 1	/* Potentiometer is attached to channel 1 */
+#define POT	 0	/* Potentiometer is attached to channel 1 */
 #define LIN_PHY_ENABLE   LPSLRM = 0x00; /* Select normal Slew rate optimized for 20kbits/s */\
 				 		 LPIE_LPOCIE = 1; /* Enable over-current interrupt*/ \
 				 		 LPCR_LPE = 1; /* Enable LIN Phy*/\
