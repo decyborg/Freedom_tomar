@@ -69,6 +69,18 @@ void main(void) {
 
   for(;;) {
     _FEED_COP(); /* feeds the dog */
+    if(read_sw2){
+    	LS0_On();
+    	send_string("\r\nSwitch 2 pressed\r\n", SCI1);	
+    } else {
+    	LS0_Off();
+    }
+    if(read_sw3){
+    	LS1_On();
+    	send_string("\r\nSwitch 3 pressed\r\n", SCI1);	
+    } else {
+    	LS1_Off();
+    }
     for(delay = 0; delay < 30000; ++delay);
     send_string("\rADC value:   ", SCI1);
     send_string("\b\b\b", SCI1);
